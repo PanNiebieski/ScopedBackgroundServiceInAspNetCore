@@ -40,7 +40,7 @@ namespace ScopedBackgroundService.ScopedExample
             "🤢"
         };
 
-        private static List<string> _emojis = new() { "🗣" };
+        private  List<string> _emojis = new() { "🗣" };
 
         public string HTML => string.Join(
             string.Empty, _emojis.Select(e => HtmlEncoder.Default.Encode(e))

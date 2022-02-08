@@ -51,13 +51,13 @@ public class WorkerHostedService : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stopToken)
     {
-        //Do your preparation (e.g. Start code) here
+        //Twój kod startujący zaczyna się tu
         while (!stopToken.IsCancellationRequested)
         {
             await Task.Delay(1000);
             Console.WriteLine("TEST");
         }
-        //Do your cleanup (e.g. Stop code) here
+        //Posprzątaj po kodzie gdy przestanie działać
     }
 }
 
@@ -65,7 +65,7 @@ public class WorkerHostedService2 : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stopToken)
     {
-        //Do your preparation (e.g. Start code) here
+        //Twój kod startujący zaczyna się tu
         while (!stopToken.IsCancellationRequested)
         {
             try
@@ -79,6 +79,6 @@ public class WorkerHostedService2 : BackgroundService
             }
 
         }
-        //Do your cleanup (e.g. Stop code) here
+        //Posprzątaj po kodzie gdy przestanie działać
     }
 }

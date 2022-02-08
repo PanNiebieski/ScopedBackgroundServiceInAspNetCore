@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/BackgroundService/.vshistory
+/ScopedBackgroundService/.vshistory/Program.cs
+/ScopedBackgroundService/ScopedExample/.vshistory

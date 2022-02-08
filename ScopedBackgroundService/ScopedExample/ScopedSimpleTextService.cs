@@ -1,7 +1,4 @@
 ﻿
-
-
-
 internal class ScopedSimpleTextService : IScopedProcessingService
 {
     private int executionCount = 0;
@@ -15,10 +12,10 @@ internal class ScopedSimpleTextService : IScopedProcessingService
     public async Task DoWork(CancellationToken stoppingToken)
     {
 
-            executionCount++;
+        executionCount++;
 
-            _logger.LogInformation(
-                "Scoped Processing Service is working. Count: {Count}", executionCount);
+        _logger.LogInformation(
+            "Scoped Processing Service is working. Count: {Count}", executionCount);
 
     }
 }

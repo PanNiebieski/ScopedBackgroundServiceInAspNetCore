@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Hosting;
 using ScopedBackgroundService.ScopedExample;
 using System.Net;
 
@@ -8,8 +9,9 @@ builder.Services.AddScoped<IScopedProcessingService, ScopedEmojiService>();
 
 builder.Services.AddScoped<ScopedEmojiService>
     (serviceprovider => 
-    {   return serviceprovider.GetServices<IScopedProcessingService>()
-        .OfType<ScopedEmojiService>().FirstOrDefault(); ;
+    {   return serviceprovider.GetServices<IHostedService>()
+        .OfType<ConsumeScopedServiceHostedService>().FirstOrDefault()
+        .EmojiService; ;
     });
 
 builder.Services.AddHostedService<ConsumeScopedServiceHostedService>();
@@ -19,18 +21,24 @@ var app = builder.Build();
 
 app.MapGet("/", (ScopedEmojiService emojiService, HttpContext context) =>
 {
-    context.Response.ContentType = "text/html";
-    return emojiService.HTML;
+    if (emojiService != null)
+    {
+        context.Response.ContentType = "text/html";
+        return emojiService.HTML;
+    }
+    return "";
 });
 
 app.MapGet("/happy", (ScopedEmojiService emojiService) =>
 {
-    emojiService.AddHappyEmoji();
+    if (emojiService != null)
+        emojiService.AddHappyEmoji();
 });
 
 app.MapGet("/sad", (ScopedEmojiService emojiService) =>
 {
-    emojiService.AddSadEmoji();
+    if (emojiService != null)
+        emojiService.AddSadEmoji();
 });
 
 app.Run();

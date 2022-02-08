@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ScopedBackgroundService.ScopedExample;
 
 public class ConsumeScopedServiceHostedService : BackgroundService
 {
+    public ScopedEmojiService EmojiService { get; private set; }
+
     private readonly ILogger<ConsumeScopedServiceHostedService> _logger;
 
     public ConsumeScopedServiceHostedService(IServiceProvider services,
@@ -12,6 +15,8 @@ public class ConsumeScopedServiceHostedService : BackgroundService
     }
 
     public IServiceProvider Services { get; }
+
+
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -39,6 +44,9 @@ public class ConsumeScopedServiceHostedService : BackgroundService
             var scopedProcessingServices =
                 scope.ServiceProvider
                     .GetServices<IScopedProcessingService>();
+
+            EmojiService = scopedProcessingServices.OfType<ScopedEmojiService>()
+                .FirstOrDefault();
 
             for (int i = 0; i < 10; i++)
             {
